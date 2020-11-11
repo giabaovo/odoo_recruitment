@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- recruitment view inherit from company -->
+    <record id="recruitment_form_inherit" model="ir.ui.view">
+        <field name="name">recruitment.form.inherit</field>
+        <field name="model">hr.job</field>
+        <field name="inherit_id" ref="hr.view_hr_job_form"/>
+        <field name="arch" type="xml">
+        <group>
+		    <xpath expr="//field[@name='address_id']" position="inside">
+                <group>
+		            <field name="company_name_inherit"/>
+                    <field name="company_location_inherit"/>
+                </group>
+		    </xpath>
+        </group>
+        </field>
+    </record>
+
+    <!-- company tree view -->
+    <record id="manager_tree" model="ir.ui.view">
+        <field name="name">company.recruitment.tree</field>
+        <field name="model">company.recruitment</field>
+        <field name="arch" type="xml">
+            <tree string="Managers">
+                <field name="company_name_seq" />
+                <field name="company_name" />
+                <field name="company_location" />
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- company form view -->
+    <record id="manager_form" model="ir.ui.view">
+        <field name="name">company.recruitment.form</field>
+        <field name="model">company.recruitment</field>
+        <field name="arch" type="xml">
+            <form string="Managers">
+                <sheet>
+                    <div>
+                        <h1>
+                            <field name="company_name_seq" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="company_name" />
+                        <field name="company_location" />
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- action of the company menu -->
+    <record id="action_company" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Company</field>
+        <field name="res_model">company.recruitment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create first company ! 
+            </p>
+        </field>
+    </record>
+
+
+    <!-- action of the company menu -->
+    <record id="action_manager" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Manager</field>
+        <field name="res_model">company.recruitment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create first manager ! 
+            </p>
+        </field>
+    </record>
+    
+    
+    <menuitem id="company_parent_menu" name="Company" sequence="0"/>
+    <menuitem id="company_menu" name="Company" parent="company_parent_menu" action="action_company" sequence="0"/>
+    <menuitem id="manager_menu" name="Manager" parent="company_parent_menu" action="action_manager" sequence="1"/>
+</odoo>
