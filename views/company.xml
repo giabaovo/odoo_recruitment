@@ -8,46 +8,110 @@
         <field name="inherit_id" ref="hr.view_hr_job_form"/>
         <field name="arch" type="xml">
         <group>
-		    <xpath expr="//field[@name='address_id']" position="inside">
+		    <xpath expr="//field[@name='address_id']" position="after">
                 <group>
 		            <field name="company_name_inherit"/>
                     <field name="company_location_inherit"/>
+                    <field name="job_working_location"/>
+                    <field name="job_application_period"/>
+                    <field name="job_employment_period"/>
                 </group>
 		    </xpath>
         </group>
+        <group>
+		    <xpath expr="//field[@name='user_id']" position="after">
+                <group>
+		            <field name="job_salary"/>
+                    <field name="job_salary_increase"/>
+                    <field name="job_bonus"/>
+                    <field name="job_assumed_annual" />
+                </group>
+		    </xpath>
+        </group>
+
+
+        <group>
+		    <xpath expr="//field[@name='job_employment_period']" position="after">
+                <group>
+		            <field name="job_employment_type"/>
+                    <field name="job_employment_age"/>
+                    <field name="job_joining_time"/>
+                    <field name="job_trial_period" />
+                    <field name="job_trial_period_salary" />
+                </group>
+		    </xpath>
+        </group>
+
+        <group>
+		    <xpath expr="//field[@name='job_assumed_annual']" position="after">
+                <group>
+		            <field name="job_working_hour"/>
+                    <field name="job_holiday"/>
+                    <field name="job_average_overtime"/>
+                    <field name="job_overtime_salary"/>
+                    <field name="job_recruitment_type" />
+                </group>
+		    </xpath>
+        </group>
+
+		    <xpath expr="//field[@name='description']" position="after">
+                <label for="job_required_skill"/>
+		        <field name="job_required_skill"/>
+                <label for="job_soft_skill"/>
+                <field name="job_soft_skill" />
+                <label for="job_assume"/>
+                <field name="job_assume" />
+                <label for="job_other_benefit"/>
+                <field name="job_other_benefit" />
+		    </xpath>
         </field>
     </record>
 
     <!-- company tree view -->
-    <record id="manager_tree" model="ir.ui.view">
+    <record id="company_tree" model="ir.ui.view">
         <field name="name">company.recruitment.tree</field>
         <field name="model">company.recruitment</field>
         <field name="arch" type="xml">
-            <tree string="Managers">
+            <tree string="Company">
                 <field name="company_name_seq" />
                 <field name="company_name" />
                 <field name="company_location" />
+                <field name="company_phone" />
             </tree>
         </field>
     </record>
 
 
     <!-- company form view -->
-    <record id="manager_form" model="ir.ui.view">
+    <record id="company_form" model="ir.ui.view">
         <field name="name">company.recruitment.form</field>
         <field name="model">company.recruitment</field>
         <field name="arch" type="xml">
-            <form string="Managers">
+            <form string="Company">
                 <sheet>
                     <div>
                         <h1>
                             <field name="company_name_seq" readonly="1"/>
                         </h1>
                     </div>
-                    <group>
-                        <field name="company_name" />
-                        <field name="company_location" />
+                    <group name="group_top">
+                        <group name="group_left" class="info">
+                            <field name="company_name" />
+                            <field name="company_location" />
+                            <field name="company_phone" />
+                        </group>    
                     </group>
+                    <group class="notes">
+                        <field name="company_note" widget="html" />
+                    </group>
+                    <notebook>
+                        <page string="Company job">
+                            <field name="company_job_ids" />
+                        </page>
+                        <page string="Company manager">
+                            <field name="company_manager_ids" />
+                        </page>
+                    </notebook>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>
@@ -72,21 +136,6 @@
     </record>
 
 
-    <!-- action of the company menu -->
-    <record id="action_manager" model="ir.actions.act_window">
-        <field name="type">ir.actions.act_window</field>
-        <field name="name">Manager</field>
-        <field name="res_model">company.recruitment</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create first manager ! 
-            </p>
-        </field>
-    </record>
-    
-    
     <menuitem id="company_parent_menu" name="Company" sequence="0"/>
     <menuitem id="company_menu" name="Company" parent="company_parent_menu" action="action_company" sequence="0"/>
-    <menuitem id="manager_menu" name="Manager" parent="company_parent_menu" action="action_manager" sequence="1"/>
 </odoo>

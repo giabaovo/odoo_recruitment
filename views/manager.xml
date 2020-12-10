@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Manager tree view  -->
+    <record id="manager_view_tree" model="ir.ui.view">
+        <field name="name">manager.view.tree</field>
+        <field name="model">company.manager</field>
+        <field name="arch" type="xml">
+            <tree string="Manager">
+                <field name="manager_name"/>
+                <field name="manager_phone" />
+                <field name="manager_email" />
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- Manger form view -->
+    <record id="manager_view_form" model="ir.ui.view">
+        <field name="name">manager.view.form</field>
+        <field name="model">company.manager</field>
+        <field name="arch" type="xml">
+            <form string="Manager">
+                <sheet>
+                    <div>
+                        <h1>
+                            <field name="manager_name_seq" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group name="group_top">
+                        <group name="group_left">
+                            <field name="manager_name"/>
+                            <field name="manager_phone" />
+                            <field name="manager_email" />
+                        </group>
+                        <group name="group_right">
+                            <field name="manager_of_company" />
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- action of the company menu -->
+    <record id="action_manager" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Manager</field>
+        <field name="res_model">company.manager</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create first manager ! 
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="manager_menu" name="Manager" parent="company_parent_menu" action="action_manager" sequence="1"/>
+</odoo>

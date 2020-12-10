@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="job_detail_inherit" 
+              name="job_detail_inherit"
+              inherit_id="website_hr_recruitment.detail">
+        <xpath expr="." position="replace">
+            <t t-call="website.layout">
+                <t t-set="additional_title">Job Detail</t>
+                <div id="wrap" class="js_hr_recruitment">
+                    <div class="oe_structure" id="oe_structure_website_hr_recruitment_detail_1"/>
+
+                    <!-- Breadcrumb -->
+                    <section class="mb16 bg-white">
+                        <div class="container">
+                            <div class="float-right">
+                                <a role="button" t-attf-href="/jobs/apply/#{job.id}" class="btn btn-primary btn-lg float-right mt32 mb4">Apply Now!</a>
+                            </div>
+                            <label class="mb0 mt16"><a href="/jobs">Jobs</a></label> /
+                            <h1 class="mb0 mt0" t-field="job.name"/>
+                            <!-- <h4 class="mt0" t-field="job.address_id" t-options='{
+                                "widget": "contact",
+                                "fields": ["city"],
+                                "no_tag_br": True
+                            }'/> -->
+                            <br/>
+                            <div class="row">
+                                <div class="col-lg-2">
+                                     <div class="text-muted">
+                                        <i class="fa fa-building-o" aria-label="Company"/> <span t-field="job.company_name_inherit"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="text-muted">
+                                        <i class="fa fa-map-marker" aria-label="Company location"/> <span t-field="job.company_location_inherit"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-2">
+                                     <div class="text-muted">
+                                        <i class="fa fa-dollar" aria-label="Salary"/> <span t-field="job.job_salary"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="text-muted">
+                                        <i class="fa fa-user" aria-label="Amount"/> <span t-field="job.no_of_recruitment"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-2">
+                                     <div class="text-muted">
+                                        <i class="fa fa-clock-o" aria-label="Time"/> <span t-field="job.job_application_period"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="text-muted">
+                                        <i class="fa fa-location-arrow" aria-label="Location"/> <span t-field="job.job_working_location"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="description">
+                                    <h2 font-weight="bold">Job Description</h2>
+                                    <span t-field="job.description" />
+
+                                    <br/>
+
+                                    <h2 font-weight="bold">Required Skill</h2>
+                                    <span t-field="job.job_required_skill" />
+
+                                    <br/>
+
+                                    <h2 font-weight="bold">Soft Skill</h2>
+                                    <span t-field="job.job_soft_skill" />
+
+                                    <br/>
+
+                                    <h2 font-weight="bold">Assumed career</h2>
+                                    <span t-field="job.job_assume" />
+
+                                    <br/>
+
+                                    <h2 font-weight="bold">Benefit</h2>
+                                    <span t-field="job.job_other_benefit" />
+                                </div>
+                            </div>
+                            <!-- <div class="col-lg-6">
+                                <div class="nenxanh">Cột thứ 1</div>
+                            </div> -->
+                        </div>
+                    </div>
+
+                    <!-- <div t-field="job.website_description"/> -->
+                    <!-- <div t-field="job.job_salary"/>  -->
+
+                    <div class="oe_structure">
+                        <section class="o_job_bottom_bar mt32 mb32">
+                            <div class="text-center">
+                                <a role="button" t-attf-href="/jobs/apply/#{job.id}" class="btn btn-primary btn-lg">Apply Now!</a>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </t>   
+        </xpath>
+    </template>
+
+    
+</odoo>
