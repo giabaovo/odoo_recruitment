@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <template id="job_detail_inherit" 
-              name="job_detail_inherit"
-              inherit_id="website_hr_recruitment.detail">
+    <template id="job_detail_inherit" name="job_detail_inherit" inherit_id="website_hr_recruitment.detail">
         <xpath expr="." position="replace">
             <t t-call="website.layout">
                 <t t-set="additional_title">Job Detail</t>
@@ -15,7 +13,9 @@
                             <div class="float-right">
                                 <a role="button" t-attf-href="/jobs/apply/#{job.id}" class="btn btn-primary btn-lg float-right mt32 mb4">Apply Now!</a>
                             </div>
-                            <label class="mb0 mt16"><a href="/jobs">Jobs</a></label> /
+                            <label class="mb0 mt16">
+                                <a href="/jobs">Jobs</a>
+                            </label> /
                             <h1 class="mb0 mt0" t-field="job.name"/>
                             <!-- <h4 class="mt0" t-field="job.address_id" t-options='{
                                 "widget": "contact",
@@ -25,42 +25,48 @@
                             <br/>
                             <div class="row">
                                 <div class="col-lg-2">
-                                     <div class="text-muted">
-                                        <i class="fa fa-building-o" aria-label="Company"/> <span t-field="job.company_name_inherit"/>
+                                    <div class="text-muted">
+                                        <i class="fa fa-building-o" aria-label="Company"/>
+                                        <span t-field="job.company_name_inherit"/>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6">
                                     <div class="text-muted">
-                                        <i class="fa fa-map-marker" aria-label="Company location"/> <span t-field="job.company_location_inherit"/>
+                                        <i class="fa fa-map-marker" aria-label="Company location"/>
+                                        <span t-field="job.company_location_inherit"/>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-lg-2">
-                                     <div class="text-muted">
-                                        <i class="fa fa-dollar" aria-label="Salary"/> <span t-field="job.job_salary"/>
+                                    <div class="text-muted">
+                                        <i class="fa fa-dollar" aria-label="Salary"/>
+                                        <span t-field="job.job_salary"/>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6">
                                     <div class="text-muted">
-                                        <i class="fa fa-user" aria-label="Amount"/> <span t-field="job.no_of_recruitment"/>
+                                        <i class="fa fa-user" aria-label="Amount"/>
+                                        <span t-field="job.no_of_recruitment"/>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-lg-2">
-                                     <div class="text-muted">
-                                        <i class="fa fa-clock-o" aria-label="Time"/> <span t-field="job.job_application_period"/>
+                                    <div class="text-muted">
+                                        <i class="fa fa-clock-o" aria-label="Time"/>
+                                        <span t-field="job.job_application_period"/>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6">
                                     <div class="text-muted">
-                                        <i class="fa fa-location-arrow" aria-label="Location"/> <span t-field="job.job_working_location"/>
+                                        <i class="fa fa-location-arrow" aria-label="Location"/>
+                                        <span t-field="job.job_working_location"/>
                                     </div>
                                 </div>
                             </div>
@@ -112,9 +118,100 @@
                         </section>
                     </div>
                 </div>
-            </t>   
+            </t>
         </xpath>
     </template>
 
-    
+    <template id="job_index_inherit" name="job_index_inherit" inherit_id="website_hr_recruitment.index">
+        <xpath expr="." position="replace">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure">
+                        <section class="mb16">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12 text-center mb16">
+                                        <h2>Our Job Offers</h2>
+                                        <h3 class="text-muted">Join us and help disrupt the enterprise market!</h3>
+                                    </div>
+                                    <div class="col-lg-12 text-center">
+                                        <p>
+                                                    Join us, we offer you an extraordinary chance to learn, to
+                                                    develop and to be part of an exciting experience and
+                                                    team.
+                                        </p>
+                                    </div>
+
+                                    <form class="mt8 float-right" role="search" t-attf-action="/jobs" method="get">
+                                        <t t-call="website.website_search_box"/>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <div class="container oe_website_jobs">
+                        <div class="row">
+                            <div class="d-none" id="jobs_grid_left">
+
+                            </div>
+                            <div class="col-lg-12" id="jobs_grid">
+                                <div t-if="not jobs">
+                                    <div class="text-center text-muted">
+                                        <h3 class="css_editable_hidden">
+                                            <a t-attf-href="/contactus">Contact us</a> for job opportunities.</h3>
+                                        <h4 groups="hr_recruitment.group_hr_recruitment_manager">
+                                                    Create new job pages from the <strong>
+                                            <i>+New</i>
+                                        </strong> top-right button.
+                                    </h4>
+                                </div>
+                            </div>
+                            <ul class="list-unstyled" t-if="jobs">
+                                <li t-foreach="jobs" t-as="job" t-attf-class="media#{' mt-3' if job_index else ''}">
+                                    <div class="media-body" t-att-data-publish="job.website_published and 'on' or 'off'">
+                                        <h3>
+                                            <a t-attf-href="/jobs/detail/#{ slug(job) }">
+                                                <span t-field="job.name"/>
+                                            </a>
+                                            <small t-if="job.no_of_recruitment &gt; 1">
+                                                <t t-esc="job.no_of_recruitment"/>
+            open positions
+                                            </small>
+                                        </h3>
+
+                                        <span t-field="job.address_id" t-options="{                                         &quot;widget&quot;: &quot;contact&quot;,                                         &quot;fields&quot;: [&quot;address&quot;],                                         &quot;no_tag_br&quot;: True                                         }"/>
+                                        <span t-if="not job.website_published" class="badge badge-danger">unpublished</span>
+                                        <div class="text-muted">
+                                            <i class="fa fa-clock-o" title="Publication date" role="img" aria-label="Publication date"/>
+                                            <span t-field="job.write_date"/>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </xpath>
+</template>
+
+
+<template id="jobs_search_box" inherit_id="website.website_search_box" primary="True">
+    <xpath expr="//div[@role='search']" position="replace">
+        <form t-attf-class="o_wevent_event_searchbar_form o_wait_lazy_js my-1 my-lg-0 #{_classes}"
+              t-att-action="action if action else '/jobs'" method="get">
+            <t t-set="search" t-value="search or _searches and _searches['search']"/>
+            <t>$0</t>
+            <t t-foreach="_searches" t-as="search">
+                <input t-if="search != 'search' and search_value != 'all'" type="hidden"
+                    t-att-name="search" t-att-value="search_value"/>
+            </t>
+            <t t-raw="0"/>
+        </form>
+    </xpath>
+</template>
 </odoo>
